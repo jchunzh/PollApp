@@ -36,4 +36,16 @@ function initializeChoices() {
 function Choice(text) {
 	this.text = text;
 	this.isSelected = false;
+	this.votes = 0;
+	this.choiceId = 0;
+	this.pollId = 0;
+}
+
+function Poll() {
+	this.choices = [];
+	this.question = '';
+	this.useCheckbox = false;
+	this.guid = '';
+	this.link = '';
+	ths.pollId = 0;
 }

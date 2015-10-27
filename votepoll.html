@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html ng-app="pollApp">
+	<head>
+		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+		<script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+		<script type="text/javascript" src="pollApp.js"></script>
+		<script type="text/javascript" src="pollService.js"></script>
+		<script type="text/javascript" src="VotePollController.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+	<body ng-controller='VotePollController'>
+		<div>
+			<form ng-submit="vote()">
+				<div ng-repeat="choice in poll.choices track by $index" ng-switch on="poll.useCheckbox">
+					<input ng-switch-when="true" type="checkbox" id="choice{{$index}}" ng-model="choice.isSelected"/>
+					<input ng-switch-when="false" name="userChoice" type="radio" id="choice{{$index}}" ng-model="selectedChoice.index" ng-value="$index"/>
+					<label for="choice{{$index}}">{{choice.text}}</label>
+				</div>
+				<div>
+					<input type="submit" value="vote"/>
+				</div>
+				<div ng-show="hasVoted">
+					{{selected}}
+				</div>
+			</form>
+			<svg class="chart">
+			</svg>
+			<!-- <div class="chart"></div> -->
+		</div>
+	</body>
+</html>
