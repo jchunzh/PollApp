@@ -1,4 +1,5 @@
-app.controller('CreatePollController', ['$scope', 'pollService', function ($scope, pollService) {
+app.controller('CreatePollController', ['$scope', '$timeout', 'pollService', function ($scope, $timeout, pollService) {
+	$scope.createPollResponse = new PollResponse();
 	$scope.poll = {
 		choices : initializeChoices(),
 		question : '',
@@ -16,12 +17,19 @@ app.controller('CreatePollController', ['$scope', 'pollService', function ($scop
 	}
 
 	$scope.createPoll = function() {
+		$scope.createPollResponse.status = 'loading';
 		pollService.save($scope.poll, function(link) {
-			$scope.hasCreated = true;
-			$scope.poll.link = link;
+			$timeout(function() {
+				$scope.createPollResponse.status = "created";
+			}, 2000)
 		});
 	}
 }]);
+
+function PollResponse() {
+	this.status = 'creating';
+	this.url = 'http://testurl.com/12345'
+}
 
 function initializeChoices() {
 	var choices = [];

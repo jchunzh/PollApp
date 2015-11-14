@@ -5,37 +5,46 @@
 		<script type="text/javascript" src="pollApp.js"></script>
 		<script type="text/javascript" src="pollService.js"></script>
 		<script type="text/javascript" src="CreatePollController.js"></script>
+		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
 	<body ng-controller='CreatePollController'>
-		<div>
-			<form ng-submit="createPoll()">
-				<div>
-					<input type="text" ng-model='poll.question' placeholder='Question'/>
-					<div ng-repeat="choice in poll.choices track by $index">
-						<input type="text" ng-model='choice.text' ng-change='addChoice($index)'
-						placeholder='Option'/>
+		<div class='header'>
+			Quick Poll
+		</div>
+		<div class='content'>
+			<div>
+				<form ng-submit="createPoll()" onsubmit="false">
+					<div class='poll'>
+						<div class='text-container'>
+							<textarea ng-model='poll.question' placeholder='Ask a question...'></textarea>
+						</div>
+						<div ng-repeat="choice in poll.choices track by $index">
+							<div class='choice'>
+								<div class='choice-text-container text-container'>
+									<input type="text" ng-model='choice.text' ng-change='addChoice($index)'
+									placeholder='Add an option...'/>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div>
-					<input type="checkbox" id="useCheckbox" ng-model="poll.useCheckbox"/>
-					<label for="useCheckbox">Respondants can pick more than one choice</label>
-				</div>
-				<div>
-					<input type="submit" value="Create Form"/>
-				</div>
-			</form>
-		</div>
-		<div ng-show="hasCreated">
-			{{poll.link}}
-		</div>
-		<div>
-			<form>
-				<div ng-repeat="choice in poll.choices track by $index" ng-switch on="useCheckbox">
-					<input ng-switch-when="true" type="checkbox" id="choice{{$index}}" ng-model="isSelected"/>
-					<input ng-switch-when="false" name="userChoice" type="radio" id="choice{{$index}}" ng-model="selectedChoice.index" ng-value="$index"/>
-					<label for="choice{{$index}}">{{choice.text}}</label>
-				</div>
-			</form>
+					<div class='options'>
+						<input type="checkbox" id="useCheckbox" ng-model="poll.useCheckbox"/>
+						<label for="useCheckbox">Allow respondents to choose multiple options</label>
+					</div>
+					<div ng-hide='createPollResponse.status !== "creating"'>
+						<input class='submit-btn' type="submit" value="CREATE" ng-disabled='createPollResponse.status !== "creating"'/>
+					</div>
+					<div ng-show='createPollResponse.status === "loading"' class='create-results loading-gif'>
+						<img src='ajax-loader.gif'/>
+					</div>
+					<div ng-show='createPollResponse.status === "created"' class='poll-url create-results'>
+							Your poll is at 
+							<a href="{{ createPollResponse.url }}" >
+							{{ createPollResponse.url }}
+							</a>
+						</div>
+				</form>
+			</div>
 		</div>
 	</body>
 </html>
