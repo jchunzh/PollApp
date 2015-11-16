@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html ng-app='pollApp'>
+	<head>
+		<script type='text/javascript' src={% static 'PollApp/bower_components/angular/angular.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/bower_components/angular-resource/angular-resource.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/pollApp.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/VotePollController.js' %}></script>
+		<link rel='stylesheet' type='text/css' href={% static 'PollApp/main.css' %}>
+	</head>
+	{% verbatim %}
+	<body ng-controller='VotePollController'>
+		<div class='header'>
+			Quick Poll
+		</div>
+		<div class='content'>
+			<form ng-submit='vote()'>
+				<div class='question'>
+					{{ poll.question }}
+				</div>
+				<div ng-repeat='choice in poll.choices track by $index' ng-switch on='poll.isMultiSelect'>
+					<div class='vote-choice-container'>
+						<input ng-switch-when='true' type='checkbox' id='choice{{$index}}' ng-model='choice.isSelected'/>
+						<input ng-switch-when='false' name='userChoice' type='radio' id='choice{{$index}}' ng-model='selectedChoice.index' ng-value='$index'/>
+						<label for='choice{{$index}}'>{{choice.text}}</label>
+					</div>
+				</div>
+				<div class='actions'>
+					<input class='btnfy submit-btn' type='submit' value='VOTE'/>
+					<div class='noselect btnfy result-btn' ng-class='{"active-result-btn": showResults}' ng-click='toggleShowResults()'>
+						<div ng-hide='showResults'>
+						RESULTS
+						</div>
+						<div ng-show='showResults'>
+						HIDE
+						</div>
+					</div>
+					<div class='clear'></div>
+				</div>
+				<div class='results' ng-show='showResults'>
+					Chart here
+				</div>
+			</form>
+		</div>
+	</body>
+
+	{% endverbatim %}
+</html>

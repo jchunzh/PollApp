@@ -1,12 +1,16 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
 <html ng-app="pollApp">
 	<head>
-		<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-		<script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
-		<script type="text/javascript" src="pollApp.js"></script>
-		<script type="text/javascript" src="pollService.js"></script>
-		<script type="text/javascript" src="CreatePollController.js"></script>
-		<link rel="stylesheet" type="text/css" href="main.css">
+		<script type="text/javascript" src={% static 'PollApp/bower_components/angular/angular.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/bower_components/angular-resource/angular-resource.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/pollApp.js' %} ></script>
+		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/CreatePollController.js' %}></script>
+		<link rel="stylesheet" type="text/css" href={% static 'PollApp/main.css' %}>
 	</head>
+	{% verbatim %}
 	<body ng-controller='CreatePollController'>
 		<div class='header'>
 			Quick Poll
@@ -34,11 +38,13 @@
 							<input class='btnfy submit-btn' type='submit' value='CREATE' ng-disabled='createPollResponse.status !== "creating"'/>
 						</div>
 						<div ng-show='createPollResponse.status === "loading"' class='create-results loading-gif'>
-							<img src='ajax-loader.gif'/>
+						{% endverbatim %}
+							<img src={% static 'PollApp/ajax-loader.gif' %}/>
+						{% verbatim %}
 						</div>
 						<div ng-show='createPollResponse.status === "created"' class='poll-url create-results'>
 								Your poll is at 
-								<a href='{{ createPollResponse.url }}'' >
+								<a href='{{ createPollResponse.url }}' >
 								{{ createPollResponse.url }}
 								</a>
 						</div>
@@ -47,4 +53,6 @@
 			</div>
 		</div>
 	</body>
+
+	{% endverbatim %}
 </html>
