@@ -20,28 +20,28 @@ app.factory('pollService', ['$resource', function ($resource) {
 				poll : {
 					choices : [
 						{
-							text : 'Choice 1',
+							text : 'Pizza',
 							isSelected : false,
 							votes : 10
 						},
 						{
-							text : 'Choice 2',
+							text : 'Fries',
 							isSelected : false,
 							votes: 1
 						},
 						{
-							text : 'Choice 3',
+							text : 'Kale',
 							isSelected : true,
 							votes : 18
 						},
 						{
-							text : 'Choice 4',
+							text : 'Chocolate',
 							isSelected : false,
 							votes : 5
 						}
 					],
-					question : 'Test question',
-					useCheckbox: true,
+					question : 'What\'s your favorite food?',
+					isMultiSelect: true,
 				}
 			});
 		}
