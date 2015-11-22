@@ -1,8 +1,13 @@
 app.controller('VotePollController', ['$scope', 'pollService', function ($scope, pollService) {
 	$scope.showResults = false;
+	$scope.selectedChoice = {};
 
 	pollService.get('guid', function(data) {
-		$scope.poll = data.poll;
+		$scope.poll = data;
+
+		if (!data.isMultiSelect) {
+			$scope.selectedChoice.index = getSelectedChoiceIndex($scope.poll);
+		}
 		// createChart($scope.poll);
 	});
 	$scope.vote = function() {
@@ -26,6 +31,14 @@ function getSelectedChoices(poll) {
 	}
 
 	return selectedChoices;
+}
+
+function getSelectedChoiceIndex (poll) {
+	for (var i = 0; i < poll.choices.length; i++) {
+		if (poll.choices[i].isSelected)
+			return i;
+	}
+	return 0;
 }
 
 // function createChart(poll) {

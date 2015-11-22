@@ -3,6 +3,8 @@ describe('VotePollController Tests', function() {
 	var scope;
 	var mockPollService;
 
+	beforeEach(moduel('app'));
+
 	beforeEach(module('pollApp', function($provide) {
 		mockPollService = {
 			save : jasmine.createSpy('save'),
