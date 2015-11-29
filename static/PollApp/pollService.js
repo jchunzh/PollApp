@@ -1,5 +1,10 @@
 app.factory('pollService', ['$resource', function ($resource) {
-	var url = '/quickpoll/api/poll/3';
+	var url = '/quickpoll/api/poll/';
 
-	return $resource(url, { get: { method : 'GET' }});
+	return $resource(url, null, { 
+		get : { method : 'GET', url : url + ':id' },
+		vote : { method : 'POST', url : url + ':id/vote_choice/'}
+	}, {
+		stripTrailingSlashes : false
+	});
 }])

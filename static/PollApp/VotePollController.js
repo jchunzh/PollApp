@@ -1,8 +1,10 @@
 app.controller('VotePollController', ['$scope', 'pollService', function ($scope, pollService) {
 	$scope.showResults = false;
-	$scope.selectedChoice = {};
+	$scope.selectedChoice = {
+		index : -1
+	};
 
-	pollService.get('guid', function(data) {
+	pollService.get( { id: 3 }, null, function(data) {
 		$scope.poll = data;
 
 		if (!data.isMultiSelect) {
@@ -11,10 +13,25 @@ app.controller('VotePollController', ['$scope', 'pollService', function ($scope,
 		// createChart($scope.poll);
 	});
 	$scope.vote = function() {
-		pollService.vote(getSelectedChoices($scope.poll), function(response) {
-			$scope.hasVoted = true;
-			$scope.selected = getSelectedChoices($scope.poll);
-		});
+		if ($scope.poll.isMultiSelect) {
+			var selectedChoices = getSelectedChoices($scope.poll);
+			pollService.vote({
+				id: $scope.poll.id,
+				choiceId : selectedChoices[0].id
+			}, null, function(response) {
+				$scope.hasVoted = true;
+				$scope.selected = getSelectedChoices($scope.poll);
+			});
+		}
+		else {
+			pollService.vote({
+				id: $scope.poll.id,
+				choiceId : $scope.poll.choices[$scope.selectedChoice.index].id
+			}, null, function(response) {
+				$scope.hasVoted = true;
+				$scope.selected = getSelectedChoices($scope.poll);
+			});
+		}
 	}
 
 	$scope.toggleShowResults = function() {

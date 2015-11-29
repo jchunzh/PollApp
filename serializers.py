@@ -5,12 +5,12 @@ from .models import Poll, Choice
 class ChoiceSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Choice
-		fields = ['text', 'isSelected', 'votes']
+		fields = ['id', 'text', 'isSelected', 'votes']
 		depth = 2
 
 class PollSerializer(serializers.ModelSerializer):
 	choices = ChoiceSerializer(many=True)
 	class Meta:
 		model = Poll
-		fields = ['question', 'isMultiSelect', 'choices']
+		fields = ['id', 'question', 'isMultiSelect', 'choices']
 
