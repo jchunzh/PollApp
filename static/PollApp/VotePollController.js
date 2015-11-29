@@ -16,8 +16,7 @@ app.controller('VotePollController', ['$scope', 'pollService', function ($scope,
 		if ($scope.poll.isMultiSelect) {
 			var selectedChoices = getSelectedChoices($scope.poll);
 			pollService.vote({
-				id: $scope.poll.id,
-				choiceId : selectedChoices[0].id
+				id: $scope.poll.id
 			}, null, function(response) {
 				$scope.hasVoted = true;
 				$scope.selected = getSelectedChoices($scope.poll);

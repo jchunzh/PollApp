@@ -3,7 +3,7 @@ describe('CreatePollController Tests', function() {
 	var scope;
 	var mockPollService;
 
-	beforeEach(module('app'));
+	// beforeEach(module('app'));	
 
 	beforeEach(module('pollApp', function($provide) {
 		mockPollService = {
