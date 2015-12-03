@@ -1,5 +1,6 @@
 app.controller('CreatePollController', ['$scope', '$timeout', 'pollService', function ($scope, $timeout, pollService) {
 	$scope.createPollResponse = new PollResponse();
+	$scope.loading_gif = '/static/PollApp/ajax-loader.gif';
 	$scope.poll = {
 		choices : initializeChoices(),
 		question : '',

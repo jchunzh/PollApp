@@ -38,9 +38,7 @@
 							<input class='btnfy submit-btn' type='submit' value='CREATE' ng-disabled='createPollResponse.status !== "creating"'/>
 						</div>
 						<div ng-show='createPollResponse.status === "loading"' class='create-results loading-gif'>
-						{% endverbatim %}
-							<img src={% static 'PollApp/ajax-loader.gif' %}/>
-						{% verbatim %}
+							<img ng-src='{{loading_gif}}'/>
 						</div>
 						<div ng-show='createPollResponse.status === "created"' class='poll-url create-results'>
 								Your poll is at 
