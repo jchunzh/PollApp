@@ -9,6 +9,7 @@
 		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
 		<script type='text/javascript' src={% static 'PollApp/CreatePollController.js' %}></script>
 		<link rel="stylesheet" type="text/css" href={% static 'PollApp/main.css' %}>
+		<title>Quick Poll - Create</title>
 	</head>
 	{% verbatim %}
 	<body ng-controller='CreatePollController'>
@@ -20,7 +21,7 @@
 				<form ng-submit="createPoll()" onsubmit="false">
 					<div class='poll'>
 						<div class='text-container input-text-container'>
-							<textarea ng-model='poll.question' placeholder='Ask a question...'></textarea>
+							<textarea class='question-textarea' ng-model='poll.question' placeholder='Ask a question...'></textarea>
 						</div>
 						<div ng-repeat="choice in poll.choices track by $index">
 							<div class='text-container input-text-container'>
