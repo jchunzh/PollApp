@@ -2,12 +2,14 @@ describe('VotePollController Tests', function() {
 	var ctrl;
 	var scope;
 	var mockPollService;
+	var poll = {};
 
 	beforeEach(module('pollApp', function($provide) {
+		poll = getStubPollData();
 		mockPollService = {
 			save : jasmine.createSpy('save'),
 			get : function (id, paramDefaults, callback) {
-				callback(getCheckboxStubPollData());
+				callback(poll);
 			},
 			vote : jasmine.createSpy('saveVotes')
 		}
@@ -19,28 +21,52 @@ describe('VotePollController Tests', function() {
 		ctrl = $controller('VotePollController', {$scope:scope});
 	}));
 
-	it('sends choices when voting', function() {
-		var data = getCheckboxStubPollData();
-		var choices = {
-			hasVoted : true,
-			selected : [data.choices[0], data.choices[2]]
-		};
+	it('sends all choices when voting a multiselect poll', function() {
+		var pollId = 123;
+		poll.isMultiSelect = true;
+
+		selectPollData([0, 2], scope.selectedChoiceMap);
+
+		poll.id = pollId;
 
 		var params = {
-			id: 123
+			id: pollId,
+			selectedChoices: [poll.choices[0].id, poll.choices[2].id]
 		}
 		scope.vote();
 
 		expect(mockPollService.vote).toHaveBeenCalledWith(params, null, jasmine.any(Function));
-	})
+	});
 
-	function getCheckboxStubPollData() {
+	it('sends single choice when voting nonmultiselect poll', function () {
+		var pollId = 123;
+		poll.isMultiSelect = false;
+
+		selectPollData([0], scope.selectedChoiceMap);
+		poll.id = pollId;
+
+		var params = {
+			id: pollId,
+			selectedChoices: [poll.choices[0].id]
+		};
+		scope.vote();
+
+		expect(mockPollService.vote).toHaveBeenCalledWith(params, null, jasmine.any(Function));
+	});
+
+	function selectPollData(choiceIndexes, choiceMap) {
+		for (var i = 0; i < choiceIndexes.length; i++) {
+			choiceMap[choiceIndexes[i]] = true;
+		}
+	}
+
+	function getStubPollData() {
 		return {
 			id : 123,
 			choices : [
 				{
 					text : 'Choice 1',
-					isSelected : true,
+					isSelected : false,
 					votes : 10,
 					id : 1,
 					pollId : 123,
@@ -54,7 +80,7 @@ describe('VotePollController Tests', function() {
 				},
 				{
 					text : 'Choice 3',
-					isSelected : true,
+					isSelected : false,
 					votes : 18,
 					id : 3,
 					pollId : 123

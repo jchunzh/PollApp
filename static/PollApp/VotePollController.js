@@ -1,36 +1,24 @@
 app.controller('VotePollController', ['$scope', 'pollService', function ($scope, pollService) {
 	$scope.showResults = false;
-	$scope.selectedChoice = {
-		index : -1
-	};
+	$scope.selectedChoiceMap = [];
 
 	pollService.get( { id: 3 }, null, function(data) {
 		$scope.poll = data;
-
-		if (!data.isMultiSelect) {
-			$scope.selectedChoice.index = getSelectedChoiceIndex($scope.poll);
-		}
-		// createChart($scope.poll);
+		$scope.selectedChoiceMap = createSelectedChoiceMap(data.choices);
 	});
+	
 	$scope.vote = function() {
-		if ($scope.poll.isMultiSelect) {
-			var selectedChoices = getSelectedChoices($scope.poll);
-			pollService.vote({
-				id: $scope.poll.id
-			}, null, function(response) {
-				$scope.hasVoted = true;
-				$scope.selected = getSelectedChoices($scope.poll);
-			});
-		}
-		else {
-			pollService.vote({
+		var selectedChoices = getSelectedChoiceIndexes($scope.selectedChoiceMap, $scope.poll.choices);
+
+		pollService.vote({
 				id: $scope.poll.id,
-				choiceId : $scope.poll.choices[$scope.selectedChoice.index].id
+				selectedChoices : selectedChoices
 			}, null, function(response) {
-				$scope.hasVoted = true;
-				$scope.selected = getSelectedChoices($scope.poll);
 			});
-		}
+	};
+
+	$scope.radioSelectionChanged = function(index) {
+		selectNonMultiSelectChoice(index, $scope.selectedChoiceMap);
 	}
 
 	$scope.toggleShowResults = function() {
@@ -38,23 +26,41 @@ app.controller('VotePollController', ['$scope', 'pollService', function ($scope,
 	}
 }]);
 
-function getSelectedChoices(poll) {
-	var selectedChoices = [];
-
-	for (var i = 0; i < poll.choices.length; i++) {
-		if (poll.choices[i].isSelected)
-			selectedChoices.push(poll.choices[i]);
+function createSelectedChoiceMap(choices) {
+	var choiceMap = [];
+	for (var i = 0; i < choices.length; i++) {
+		if (choices[i].isSelected) {
+			choiceMap.push(true);
+		}
+		else {
+			choiceMap.push(false);
+		}
 	}
 
-	return selectedChoices;
+	return choiceMap;
 }
 
-function getSelectedChoiceIndex (poll) {
-	for (var i = 0; i < poll.choices.length; i++) {
-		if (poll.choices[i].isSelected)
-			return i;
+function selectNonMultiSelectChoice(index, choiceMap) {
+	for (var i = 0; i < choiceMap.length; i++) {
+		if (i === index) {
+			choiceMap[i] = true;
+		}
+		else {
+			choiceMap[i] = false;
+		}
 	}
-	return 0;
+}
+
+function getSelectedChoiceIndexes(choiceMap, choices) {
+	var choiceIndexes = [];
+
+	for (var i = 0; i < choiceMap.length; i++) {
+		if (choiceMap[i]) {
+			choiceIndexes.push(choices[i].id);
+		}
+	}
+
+	return choiceIndexes;
 }
 
 // function createChart(poll) {

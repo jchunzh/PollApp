@@ -22,8 +22,8 @@
 				</div>
 				<div ng-repeat='choice in poll.choices track by $index' ng-switch on='poll.isMultiSelect'>
 					<div class='vote-choice-container'>
-						<input ng-switch-when='true' type='checkbox' id='choice{{$index}}' ng-model='choice.isSelected'/>
-						<input ng-switch-when='false' name='userChoice' type='radio' id='choice{{$index}}' ng-model='selectedChoice.index' ng-value='$index'/>
+						<input ng-switch-when='true' type='checkbox' id='choice{{$index}}' ng-model='selectedChoiceMap[$index]' ng-value='true'/>
+						<input ng-switch-when='false'  type='radio' name='userChoice' id='choice{{$index}}' ng-model='selectedChoiceMap[$index]' ng-change='radioSelectionChanged($index)' ng-value='true'/>
 						<label for='choice{{$index}}'>{{choice.text}}</label>
 					</div>
 				</div>
