@@ -18,29 +18,18 @@ class PollViewSet(viewsets.ModelViewSet):
 
 	@detail_route(methods=['post'])
 	def vote_choice(self, request, pk=None):
-		print("vote")
-
-		choice_id = request.query_params.get('choiceId')
-
-		print(choice_id)
-		print(pk)
+		selected_choices = request.query_params.get('selectedChoices')
 
 		choices = Choice.objects.filter(
-			id = choice_id
+			id__in = selected_choices
 			).filter(
 			poll_id = pk
 			)
 
-
-
 		if not choices:
-			pass
-		else:
-			choice = choices[0]
-			print(choice)
-			print(choice.id)
-			print(choice.text)
-			print(choice.votes)
+			return Response({ 'status' : 'failure' })
+
+		for choice in choices: 
 			choice.votes += 1
 			choice.save()
 
