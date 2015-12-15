@@ -10,3 +10,6 @@ urlpatterns = [
     url(r'^vote$', views.vote, name='vote'),
     url(r'^', include(router.urls))
 ]
+
+for u in router.urls: 
+	print(u)

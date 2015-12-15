@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from .serializers import PollSerializer
 from rest_framework.decorators import detail_route
 from .models import Poll, Choice
 from rest_framework.response import Response
-import pprint
 
 def create(request):
 	return render(request, 'PollApp/createpoll.html')
@@ -12,7 +11,7 @@ def create(request):
 def vote(request):
 	return render(request, 'PollApp/votepoll.html')
 
-class PollViewSet(viewsets.ModelViewSet):
+class PollViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 	queryset = Poll.objects.all()
 	serializer_class = PollSerializer
 

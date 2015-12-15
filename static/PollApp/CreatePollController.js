@@ -4,7 +4,7 @@ app.controller('CreatePollController', ['$scope', '$timeout', 'pollService', fun
 	$scope.poll = {
 		choices : initializeChoices(),
 		question : '',
-		useCheckbox : false,
+		isMultiSelect : false,
 		link : ''
 	};
 
@@ -19,17 +19,36 @@ app.controller('CreatePollController', ['$scope', '$timeout', 'pollService', fun
 
 	$scope.createPoll = function() {
 		$scope.createPollResponse.status = 'loading';
-		pollService.save($scope.poll, function(link) {
-			$timeout(function() {
-				$scope.createPollResponse.status = "created";
-			}, 2000)
+		pollService.save(null, createFormatedPollData($scope.poll), function() {
+			$scope.createPollResponse.status = "created";
 		});
 	}
 }]);
 
 function PollResponse() {
-	this.status = 'creating';
-	this.url = 'http://testurl.com/12345'
+    this.status = 'creating';
+    this.url = 'http://testurl.com/12345'
+}
+
+
+function createFormatedPollData(poll) {
+	var pollData = {};
+	pollData.question = poll.question;
+	pollData.isMultiSelect = poll.multiSelect;
+	pollData.choices = getNonEmptyPollChoices(poll.choices);
+	
+	return pollData;
+}
+
+function getNonEmptyPollChoices(choices) {
+	var nonEmptyChoices = [];
+	for (var i = 0; i < choices.length; i++) {
+		
+		if (choices[i].text)
+			nonEmptyChoices.push(choices[i]);
+	}
+	
+	return nonEmptyChoices;
 }
 
 function initializeChoices() {
@@ -42,19 +61,13 @@ function initializeChoices() {
 	return choices;
 }
 
-function Choice(text) {
-	this.text = text;
+function Choice() {
 	this.isSelected = false;
-	this.votes = 0;
-	this.choiceId = 0;
-	this.pollId = 0;
+	this.text = undefined;
 }
 
 function Poll() {
 	this.choices = [];
 	this.question = '';
-	this.useCheckbox = false;
-	this.guid = '';
-	this.link = '';
-	ths.pollId = 0;
+	this.isMultiSelect = false;
 }

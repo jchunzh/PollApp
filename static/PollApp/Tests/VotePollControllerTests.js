@@ -8,7 +8,7 @@ describe('VotePollController Tests', function() {
 		poll = getStubPollData();
 		mockPollService = {
 			save : jasmine.createSpy('save'),
-			get : function (id, paramDefaults, callback) {
+			get : function (id, callback) {
 				callback(poll);
 			},
 			vote : jasmine.createSpy('saveVotes')

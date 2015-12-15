@@ -14,3 +14,11 @@ class PollSerializer(serializers.ModelSerializer):
 		model = Poll
 		fields = ['id', 'question', 'isMultiSelect', 'choices']
 
+	def create(self, data):
+		choices_data = data.pop('choices')
+		poll = Poll.objects.create(**data)
+		
+		for choice in choices_data:
+			Choice.objects.create(poll=poll, **choice)
+			
+		return poll
