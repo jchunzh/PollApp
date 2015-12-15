@@ -1,8 +1,9 @@
-app.controller('VotePollController', ['$scope', 'pollService', function ($scope, pollService) {
+app.controller('VotePollController', ['$scope', 'pollService', '$location', function ($scope, pollService, $location) {
 	$scope.showResults = false;
 	$scope.selectedChoiceMap = [];
 
-	pollService.get( { id: 3 }, function(data) {
+	$scope.pollId = getPollId($location.path());
+	pollService.get( { id: $scope.pollId }, function(data) {
 		$scope.poll = data;
 		$scope.selectedChoiceMap = createSelectedChoiceMap(data.choices);
 	});
@@ -25,6 +26,12 @@ app.controller('VotePollController', ['$scope', 'pollService', function ($scope,
 		$scope.showResults = !$scope.showResults;
 	}
 }]);
+
+function getPollId(url) {
+	var parts = url.split("/");
+	var id = parts[parts.length - 1];
+	return id;
+}
 
 function createSelectedChoiceMap(choices) {
 	var choiceMap = [];

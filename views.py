@@ -8,7 +8,7 @@ from rest_framework.response import Response
 def create(request):
 	return render(request, 'PollApp/createpoll.html')
 
-def vote(request):
+def vote(request, poll_id):
 	return render(request, 'PollApp/votepoll.html')
 
 class PollViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
