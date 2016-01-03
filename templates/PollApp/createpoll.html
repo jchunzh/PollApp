@@ -18,7 +18,7 @@
 		</div>
 		<div class='content'>
 			<div>
-				<form ng-submit="createPoll()" onsubmit="false">
+				<form onsubmit="false">
 					<div class='poll'>
 						<div class='text-container input-text-container'>
 							<textarea class='question-textarea' ng-model='poll.question' placeholder='Ask a question...'></textarea>
@@ -36,7 +36,9 @@
 					</div>
 					<div class='actions'>
 						<div ng-hide='createPollResponse.status !== "creating"'>
-							<input class='btnfy submit-btn' type='submit' value='CREATE' ng-disabled='createPollResponse.status !== "creating"'/>
+							<div class='btnfy submit-btn' ng-click='createPoll()' ng-disabled='createPollResponse.status !== "creating"'>
+								CREATE
+							</div>
 						</div>
 						<div ng-show='createPollResponse.status === "loading"' class='create-results loading-gif'>
 							<img ng-src='{{loading_gif}}'/>

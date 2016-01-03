@@ -3,9 +3,9 @@ app.controller('VotePollController', ['$scope', 'pollService', '$location', func
 	$scope.selectedChoiceMap = [];
 
 	$scope.pollId = getPollId($location.path());
-	pollService.get( { id: $scope.pollId }, function(data) {
-		$scope.poll = data;
-		$scope.selectedChoiceMap = createSelectedChoiceMap(data.choices);
+	pollService.get( { uuid: $scope.pollId }, function(data) {
+		$scope.poll = data.poll;
+		$scope.selectedChoiceMap = createSelectedChoiceMap($scope.poll.choices);
 	});
 	
 	$scope.vote = function() {

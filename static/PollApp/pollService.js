@@ -2,7 +2,7 @@ app.factory('pollService', ['$resource', function ($resource) {
 	var url = '/quickpoll/api/poll/';
 
 	return $resource(url, null, { 
-		get : { method : 'GET', url : url + ':id' },
+		get : { method : 'GET', url : url + ':uuid' },
 		save: { method: 'POST', url: url },
 		vote : { method : 'POST', url : url + ':id/vote_choice/'}
 	}, {

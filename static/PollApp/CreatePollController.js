@@ -1,4 +1,4 @@
-app.controller('CreatePollController', ['$scope', '$timeout', 'pollService', function ($scope, $timeout, pollService) {
+app.controller('CreatePollController', ['$scope', 'pollService', function ($scope, pollService) {
 	$scope.createPollResponse = new PollResponse();
 	$scope.loading_gif = '/static/PollApp/ajax-loader.gif';
 	$scope.poll = {
@@ -19,15 +19,15 @@ app.controller('CreatePollController', ['$scope', '$timeout', 'pollService', fun
 
 	$scope.createPoll = function() {
 		$scope.createPollResponse.status = 'loading';
-		pollService.save(null, createFormatedPollData($scope.poll), function() {
+		pollService.save(null, createFormatedPollData($scope.poll), function(data, responseHeaders) {
 			$scope.createPollResponse.status = "created";
+			$scope.createPollResponse.url = 'http://' + location.host + '/quickpoll/vote/' + data.poll.uuid64;
 		});
 	}
 }]);
 
 function PollResponse() {
     this.status = 'creating';
-    this.url = 'http://testurl.com/12345'
 }
 
 

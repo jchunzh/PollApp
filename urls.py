@@ -7,7 +7,7 @@ router.register(r'api/poll', views.PollViewSet)
 
 urlpatterns = [
     url(r'^create$', views.create, name='create'),
-    url(r'^vote/(?P<poll_id>[0-9]+)$', views.vote, name='vote'),
+    url(r'^vote/.+$', views.vote, name='vote'),
     url(r'^', include(router.urls))
 ]
 
