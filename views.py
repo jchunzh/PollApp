@@ -17,9 +17,10 @@ class PollViewSet(viewsets.ViewSet):
 	serializer_class = PollSerializer
 	_pollRepository = PollRepository();
 	
-	
 	def create(self, request, pk=None):
-		poll = self._pollRepository.createPoll(request.data)
+		pollData = request.data
+		choicesData = request.data.pop('choices')
+		poll = self._pollRepository.createPoll(pollData, choicesData)
 		serializer = PollSerializer(poll)
 		return Response({ 'poll' : serializer.data })
 	

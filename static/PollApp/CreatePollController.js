@@ -21,7 +21,7 @@ app.controller('CreatePollController', ['$scope', 'pollService', function ($scop
 		$scope.createPollResponse.status = 'loading';
 		pollService.save(null, createFormatedPollData($scope.poll), function(data, responseHeaders) {
 			$scope.createPollResponse.status = "created";
-			$scope.createPollResponse.url = 'http://' + location.host + '/quickpoll/vote/' + data.poll.uuid64;
+			$scope.createPollResponse.url = 'http://' + location.host + '/quickpoll/vote/' + data.poll.uniqueId;
 		});
 	}
 }]);

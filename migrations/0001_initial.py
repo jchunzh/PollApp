@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Choice',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('text', models.CharField(max_length=500)),
                 ('isSelected', models.BooleanField(default=False)),
                 ('votes', models.IntegerField(default=0)),
@@ -22,10 +22,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Poll',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('question', models.CharField(max_length=1000)),
                 ('isMultiSelect', models.BooleanField(default=False)),
-                ('uuid64', models.CharField(default=None, max_length=24)),
+                ('uniqueId', models.CharField(max_length=24, default=None)),
             ],
         ),
         migrations.AddField(

@@ -4,7 +4,7 @@ from django.db import models
 class Poll(models.Model): 
 	question = models.CharField(max_length=1000)
 	isMultiSelect = models.BooleanField(default=False)
-	uuid64 = models.CharField(max_length=24, default=None)
+	uniqueId = models.CharField(max_length=24, default=None)
 
 	def __str__(self):
 		return self.question

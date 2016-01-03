@@ -15,18 +15,7 @@ class PollSerializer(serializers.ModelSerializer):
 	choices = ChoiceSerializer(many=True)
 	class Meta:
 		model = Poll
-		fields = ['question', 'isMultiSelect', 'choices', 'uuid64']
-
-	def getUnusedUuid(self):
-		while True:
-			candidateUuid = base64.urlsafe_b64encode(uuid.uuid4().bytes).decode('utf-8')[0:22]
-			existingPoll = Poll.objects.filter(uuid64=candidateUuid)
-				
-			if not existingPoll:
-				break
-		
-		return candidateUuid
-	
+		fields = ['question', 'isMultiSelect', 'choices', 'uniqueId']
 
 	def create(self, data):
 		pollRepo = PollRepository()

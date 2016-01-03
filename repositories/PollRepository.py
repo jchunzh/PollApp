@@ -1,12 +1,15 @@
 from PollApp.models import Poll, Choice
-import uuid
-import base64
+from PollApp.utility.UniqueIdGenerator import UniqueIdGenerator
 
 class PollRepository():
-	def _getUnusedUuid(self):
+	
+	def __init__(self):
+		self._uniqueIdGenerator = UniqueIdGenerator()
+	
+	def _getUnusedPollUuid(self):
 		while True:
-			candidateUuid = base64.urlsafe_b64encode(uuid.uuid4().bytes).decode('utf-8')[0:22]
-			existingPoll = Poll.objects.filter(uuid64=candidateUuid)
+			candidateUuid = self._uniqueIdGenerator.createUrlSafeUniqueId()
+			existingPoll = Poll.objects.filter(uniqueId=candidateUuid)
 				
 			if not existingPoll:
 				break
@@ -14,17 +17,15 @@ class PollRepository():
 		return candidateUuid
 	
 
-	def createPoll(self, pollDic):
-		choices_data = pollDic.pop('choices')
-		
-		poll = Poll(**pollDic)
-		poll.uuid64 = self._getUnusedUuid()
+	def createPoll(self, pollDict, choices):
+		poll = Poll(**pollDict)
+		poll.uniqueId = self._getUnusedPollUuid()
 		poll.save()
 		
-		for choice in choices_data:
+		for choice in choices:
 			Choice.objects.create(poll=poll, **choice)
 		return poll
 		
 	def getPollByUniqueId(self, uniqueId):
-		poll = Poll.objects.get(uuid64=uniqueId)
+		poll = Poll.objects.get(uniqueId=uniqueId)
 		return poll
