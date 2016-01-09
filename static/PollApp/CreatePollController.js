@@ -30,11 +30,10 @@ function PollResponse() {
     this.status = 'creating';
 }
 
-
 function createFormatedPollData(poll) {
 	var pollData = {};
 	pollData.question = poll.question;
-	pollData.isMultiSelect = poll.multiSelect;
+	pollData.isMultiSelect = poll.isMultiSelect;
 	pollData.choices = getNonEmptyPollChoices(poll.choices);
 	
 	return pollData;
