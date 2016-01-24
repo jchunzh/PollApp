@@ -3,12 +3,12 @@
 
 <html ng-app='pollApp'>
 	<head>
-		<script type='text/javascript' src={% static 'PollApp/bower_components/angular/angular.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/bower_components/angular-resource/angular-resource.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/lib/angular/angular.min.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/lib/angular-resource/angular-resource.min.js' %}></script>
 		<script type='text/javascript' src={% static 'PollApp/pollApp.js' %}></script>
 		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
 		<script type='text/javascript' src={% static 'PollApp/VotePollController.js' %}></script>
-		<link rel='stylesheet' type='text/css' href={% static 'PollApp/main.css' %}>
+		<link rel='stylesheet' type='text/css' href={% static 'PollApp/css/main.css' %}>
 		<title>Quick Poll - Vote</title>
 	</head>
 	{% verbatim %}

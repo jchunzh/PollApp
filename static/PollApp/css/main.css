@@ -1,0 +1,151 @@
+body {
+  font-family: helvetica;
+  font-size: 20px;
+  color: #403D3F; }
+
+label {
+  font-size: 20px; }
+
+textarea, input[type=text] {
+  font-size: 20px;
+  font-family: helvetica;
+  width: 100%;
+  padding: 8px;
+  color: #403D3F; }
+
+input[type=text] {
+  border: none;
+  outline: none; }
+
+textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  overflow: auto;
+  height: 78px; }
+
+textarea:focus, input[type=text]:focus {
+  background: #F7F7F7; }
+
+input::-webkit-input-placeholder {
+  font-family: helvetica;
+  color: #B8B8B8; }
+
+textarea::-webkit-input-placeholder {
+  font-family: helvetica;
+  color: #B8B8B8; }
+
+textarea:focus::-webkit-input-placeholder {
+  color: #D3D3D3; }
+
+input:focus::-webkit-input-placeholder {
+  color: #D3D3D3; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-family: helvetica; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-family: helvetica; }
+
+:-ms-input-placeholder {
+  font-family: helvetica; }
+
+.chart {
+  font: 10px sans-serif;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white; }
+
+.chart rect {
+  fill: steelblue; }
+
+.content {
+  width: 416px;
+  margin: 0 auto; }
+
+.text-container {
+  margin: 0 0 11px 0; }
+
+.input-text-container {
+  border: 0 solid #B8B8B8;
+  border-width: 0 0 1px 0; }
+
+.header {
+  margin: 40px 0 40px 0;
+  text-align: center;
+  font-size: 40px; }
+
+.options {
+  margin: 40px 0 0 0; }
+
+input[type=submit] {
+  color: #403D3F; }
+
+.btnfy {
+  font-size: 20px;
+  padding: 8px 20px;
+  border: 1px solid #403D3F;
+  border-width: 1px;
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer; }
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.btnfy:active {
+  background: #F1F1F1; }
+
+.submit-btn {
+  float: right; }
+
+.result-btn {
+  float: left;
+  width: 92.25px;
+  text-align: center; }
+
+.active-result-btn {
+  background: #403D3F;
+  color: white; }
+
+.active-result-btn:active {
+  color: #403D3F; }
+
+.clear {
+  clear: both; }
+
+input:focus {
+  outline: none; }
+
+.create-results {
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  padding: 14px 0; }
+
+.loading-gif {
+  text-align: center; }
+
+.question {
+  font-size: 24px;
+  padding: 8px 0 0 0;
+  margin: 0 0 20px 0; }
+
+.vote-choice-container {
+  margin: 0 0 6px 0;
+  font-size: 22px; }
+
+.actions {
+  margin: 20px 0 20px 0; }
+
+.question-textarea {
+  vertical-align: bottom; }
