@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<html ng-app="pollApp">
+	<head>
+		<script type="text/javascript" src={% static 'PollApp/lib/angular/angular.min.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/lib/angular-resource/angular-resource.min.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/pollApp.js' %} ></script>
+		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/utilityService.js' %}></script>
+		<link rel="stylesheet" type="text/css" href={% static 'PollApp/css/main.css' %}>
+		<title>Quick Poll</title>
+	</head>
+	{% block content %} 
+	{% endblock %}
+</html>

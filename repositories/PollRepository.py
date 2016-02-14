@@ -17,13 +17,11 @@ class PollRepository():
 		return candidateUuid
 	
 
-	def createPoll(self, pollDict, choices):
+	def createPoll(self, pollDict):
 		poll = Poll(**pollDict)
 		poll.uniqueId = self._getUnusedPollUuid()
 		poll.save()
 		
-		for choice in choices:
-			Choice.objects.create(poll=poll, **choice)
 		return poll
 		
 	def getPollByUniqueId(self, uniqueId):

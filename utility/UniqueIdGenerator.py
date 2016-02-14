@@ -15,5 +15,7 @@ class UniqueIdGenerator():
 			
 		return candidate[0:6]
 		
+	def createUniqueId(self):
+		return base64.urlsafe_b64encode(uuid.uuid4().bytes).decode('utf-8')[0:22]
 		
 			

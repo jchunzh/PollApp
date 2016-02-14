@@ -1,16 +1,7 @@
+{% extends "PollApp/base.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-
-<html ng-app='pollApp'>
-	<head>
-		<script type='text/javascript' src={% static 'PollApp/lib/angular/angular.min.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/lib/angular-resource/angular-resource.min.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/pollApp.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/VotePollController.js' %}></script>
-		<link rel='stylesheet' type='text/css' href={% static 'PollApp/css/main.css' %}>
-		<title>Quick Poll - Vote</title>
-	</head>
+{% block content %}
+<script type='text/javascript' src={% static 'PollApp/VotePollController.js' %}></script>
 	{% verbatim %}
 	<body ng-controller='VotePollController'>
 		<div class='header'>
@@ -46,6 +37,4 @@
 			</form>
 		</div>
 	</body>
-
-	{% endverbatim %}
-</html>
+{% endverbatim %}{% endblock %}

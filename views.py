@@ -5,6 +5,7 @@ from rest_framework.decorators import detail_route
 from .models import Poll, Choice
 from rest_framework.response import Response
 from PollApp.repositories.PollRepository import PollRepository
+from PollApp.repositories.ChoiceRepository import ChoiceRepository
 
 def create(request):
 	return render(request, 'PollApp/createpoll.html')
@@ -12,15 +13,24 @@ def create(request):
 def vote(request):
 	return render(request, 'PollApp/votepoll.html')
 
+def results(request):
+	return render(request, 'PollApp/pollresults.html')
+
 class PollViewSet(viewsets.ViewSet):
 	queryset = Poll.objects.all()
 	serializer_class = PollSerializer
 	_pollRepository = PollRepository();
+	_choiceRepository = ChoiceRepository()
 	
 	def create(self, request, pk=None):
 		pollData = request.data
+		
 		choicesData = request.data.pop('choices')
-		poll = self._pollRepository.createPoll(pollData, choicesData)
+		poll = self._pollRepository.createPoll(pollData)
+		
+		for choice in choicesData:
+			self._choiceRepository.create(poll, **choice)
+		
 		serializer = PollSerializer(poll)
 		return Response({ 'poll' : serializer.data })
 	
@@ -32,19 +42,10 @@ class PollViewSet(viewsets.ViewSet):
 
 	@detail_route(methods=['post'])
 	def vote_choice(self, request, pk=None):
-		selected_choices = request.query_params.get('selectedChoices')
+		selected_choices = request.query_params.getlist('selectedChoices')
+		
+		print(selected_choices);
 
-		choices = Choice.objects.filter(
-			id__in = selected_choices
-			).filter(
-			poll_id = pk
-			)
-
-		if not choices:
-			return Response({ 'status' : 'failure' })
-
-		for choice in choices: 
-			choice.votes += 1
-			choice.save()
+		self._choiceRepository.voteForChoices(selected_choices)
 
 		return Response({ 'status' : 'success'})

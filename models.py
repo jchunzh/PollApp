@@ -4,7 +4,7 @@ from django.db import models
 class Poll(models.Model): 
 	question = models.CharField(max_length=1000)
 	isMultiSelect = models.BooleanField(default=False)
-	uniqueId = models.CharField(max_length=24, default=None)
+	uniqueId = models.CharField(max_length=24, unique=True)
 
 	def __str__(self):
 		return self.question
@@ -14,3 +14,4 @@ class Choice(models.Model):
 	isSelected = models.BooleanField(default=False)
 	votes = models.IntegerField(default=0)
 	poll = models.ForeignKey(Poll, related_name='choices')
+	uniqueId = models.CharField(max_length=24, default=None, unique=True)

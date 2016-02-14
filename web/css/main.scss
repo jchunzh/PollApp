@@ -186,3 +186,15 @@ input:focus {
 .question-textarea {
 	vertical-align: bottom;
 }
+
+.slice text {
+	font-size: 16px;
+	font-family: Helvetica;
+}
+
+.results-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}

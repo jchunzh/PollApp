@@ -8,7 +8,7 @@ from PollApp.repositories.PollRepository import PollRepository
 class ChoiceSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Choice
-		fields = ['id','text', 'isSelected', 'votes']
+		fields = ['text', 'isSelected', 'votes', 'uniqueId']
 		depth = 2
 
 class PollSerializer(serializers.ModelSerializer):

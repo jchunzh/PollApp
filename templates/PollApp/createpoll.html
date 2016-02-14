@@ -1,59 +1,48 @@
+{% extends "PollApp/base.html" %}
 {% load staticfiles %}
-<!DOCTYPE html>
-
-<html ng-app="pollApp">
-	<head>
-		<script type="text/javascript" src={% static 'PollApp/lib/angular/angular.min.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/lib/angular-resource/angular-resource.min.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/pollApp.js' %} ></script>
-		<script type='text/javascript' src={% static 'PollApp/pollService.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/CreatePollController.js' %}></script>
-		<link rel="stylesheet" type="text/css" href={% static 'PollApp/css/main.css' %}>
-		<title>Quick Poll - Create</title>
-	</head>
-	{% verbatim %}
-	<body ng-controller='CreatePollController'>
-		<div class='header'>
-			Quick Poll
-		</div>
-		<div class='content'>
-			<div>
-				<form onsubmit="false">
-					<div class='poll'>
+{% block content %}
+<script type='text/javascript' src={% static 'PollApp/CreatePollController.js' %}></script>
+{% verbatim %}
+<body ng-controller='CreatePollController'>
+	<div class='header'>
+		Quick Poll
+	</div>
+	<div class='content'>
+		<div>
+			<form onsubmit="false">
+				<div class='poll'>
+					<div class='text-container input-text-container'>
+						<textarea class='question-textarea' ng-model='poll.question' placeholder='Ask a question...'></textarea>
+					</div>
+					<div ng-repeat="choice in poll.choices track by $index">
 						<div class='text-container input-text-container'>
-							<textarea class='question-textarea' ng-model='poll.question' placeholder='Ask a question...'></textarea>
-						</div>
-						<div ng-repeat="choice in poll.choices track by $index">
-							<div class='text-container input-text-container'>
-								<input type="text" ng-model='choice.text' ng-change='addChoice($index)'
-								placeholder='Add an option...'/>
-							</div>
+							<input type="text" ng-model='choice.text' ng-change='addChoice($index)'
+							placeholder='Add an option...'/>
 						</div>
 					</div>
-					<div class='options'>
-						<input type='checkbox' id='isMultiSelect' ng-model='poll.isMultiSelect'/>
-						<label for='isMultiSelect'>Allow respondents to choose multiple options</label>
-					</div>
-					<div class='actions'>
-						<div ng-hide='createPollResponse.status !== "creating"'>
-							<div class='btnfy submit-btn' ng-click='createPoll()' ng-disabled='createPollResponse.status !== "creating"'>
-								CREATE
-							</div>
-						</div>
-						<div ng-show='createPollResponse.status === "loading"' class='create-results loading-gif'>
-							<img ng-src='{{loading_gif}}'/>
-						</div>
-						<div ng-show='createPollResponse.status === "created"' class='poll-url create-results'>
-								Your poll is at 
-								<a href='{{ createPollResponse.url }}' >
-								{{ createPollResponse.url }}
-								</a>
+				</div>
+				<div class='options'>
+					<input type='checkbox' id='isMultiSelect' ng-model='poll.isMultiSelect'/>
+					<label for='isMultiSelect'>Allow respondents to choose multiple options</label>
+				</div>
+				<div class='actions'>
+					<div ng-hide='createPollResponse.status !== "creating"'>
+						<div class='btnfy submit-btn' ng-click='createPoll()' ng-disabled='createPollResponse.status !== "creating"'>
+							CREATE
 						</div>
 					</div>
-				</form>
-			</div>
+					<div ng-show='createPollResponse.status === "loading"' class='create-results loading-gif'>
+						<img ng-src='{{loading_gif}}'/>
+					</div>
+					<div ng-show='createPollResponse.status === "created"' class='poll-url create-results'>
+							Your poll is at 
+							<a href='{{ createPollResponse.url }}' >
+							{{ createPollResponse.url }}
+							</a>
+					</div>
+				</div>
+			</form>
 		</div>
-	</body>
-
-	{% endverbatim %}
-</html>
+	</div>
+</body>
+{% endverbatim %}{% endblock %}

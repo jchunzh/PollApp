@@ -1,0 +1,21 @@
+{%extends "PollApp/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<script type='text/javascript' src={% static 'PollApp/PollResultsController.js' %}></script>
+<script type='text/javascript' src={% static 'PollApp/lib/d3/d3.min.js' %}></script>
+{% verbatim %}
+<body ng-controller='PollResultsController'>
+	<div class='header'>
+		Quick Poll
+	</div>
+	<div class='content'>
+		<div ng-repeat="choice in poll.choices track by $index" class='results-row'>
+			<div>{{choice.text}}</div>
+			<div>{{choice.votes}}</div>
+		</div>
+		<div id='chart'>
+		</div>
+	</div>
+</body>
+{% endverbatim %}
+{% endblock %}

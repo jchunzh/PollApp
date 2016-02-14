@@ -1,8 +1,8 @@
-app.controller('VotePollController', ['$scope', 'pollService', '$location', function ($scope, pollService, $location) {
+app.controller('VotePollController', ['$scope', 'pollService', '$location', 'utilityService', function ($scope, pollService, $location, utilityService) {
 	$scope.showResults = false;
 	$scope.selectedChoiceMap = [];
 
-	$scope.pollId = getPollId($location.path());
+	$scope.pollId = utilityService.getPollUniqueId($location.path());
 	pollService.get( { uuid: $scope.pollId }, function(data) {
 		$scope.poll = data.poll;
 		$scope.selectedChoiceMap = createSelectedChoiceMap($scope.poll.choices);
@@ -12,7 +12,7 @@ app.controller('VotePollController', ['$scope', 'pollService', '$location', func
 		var selectedChoices = getSelectedChoiceIndexes($scope.selectedChoiceMap, $scope.poll.choices);
 
 		pollService.vote({
-				id: $scope.poll.id,
+				id: $scope.poll.uniqueId,
 				selectedChoices : selectedChoices
 			}, null, function(response) {
 			});
@@ -26,12 +26,6 @@ app.controller('VotePollController', ['$scope', 'pollService', '$location', func
 		$scope.showResults = !$scope.showResults;
 	}
 }]);
-
-function getPollId(url) {
-	var parts = url.split("/");
-	var id = parts[parts.length - 1];
-	return id;
-}
 
 function createSelectedChoiceMap(choices) {
 	var choiceMap = [];
@@ -63,7 +57,7 @@ function getSelectedChoiceIndexes(choiceMap, choices) {
 
 	for (var i = 0; i < choiceMap.length; i++) {
 		if (choiceMap[i]) {
-			choiceIndexes.push(choices[i].id);
+			choiceIndexes.push(choices[i].uniqueId);
 		}
 	}
 

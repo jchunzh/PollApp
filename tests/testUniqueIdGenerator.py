@@ -18,3 +18,8 @@ class UniqueIdGeneratorTestCase(TestCase):
 		
 		for c in illegalChar:
 			self.assertNotIn(c, uniqueId)
+			
+	def test_when_generating_unique_id_then_length_is_22(self):
+		uniqueId = self.sut.createUniqueId()
+		
+		self.assertEqual(22, len(uniqueId))
