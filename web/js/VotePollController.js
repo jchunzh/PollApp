@@ -1,4 +1,4 @@
-app.controller('VotePollController', ['$scope', 'pollService', '$location', 'utilityService', function ($scope, pollService, $location, utilityService) {
+app.controller('VotePollController', ['$scope', 'pollService', '$location', 'utilityService', '$window', function ($scope, pollService, $location, utilityService, $window) {
 	$scope.showResults = false;
 	$scope.selectedChoiceMap = [];
 
@@ -15,6 +15,7 @@ app.controller('VotePollController', ['$scope', 'pollService', '$location', 'uti
 				id: $scope.poll.uniqueId,
 				selectedChoices : selectedChoices
 			}, null, function(response) {
+				$window.location.href = '/quickpoll/results/' + $scope.pollId;
 			});
 	};
 

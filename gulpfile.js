@@ -7,14 +7,14 @@ var watch = require('gulp-watch');
 var localDeploymentFolder = 'static/PollApp/';
 
 gulp.task('default', function(callback) {
-	runSequence('clean:static', ['sass', 'lib', 'js', 'img', 'watch'], callback);
+	runSequence('clean:static', ['sass', 'lib', 'js', 'img', 'html', 'watch'], callback);
 });
 
 gulp.task('watch', ['clean:static'], function() {
-	gulp.watch('./web/css/*.scss', ['sass']);
-	gulp.watch('./web/js/bower_components/**', ['lib']);
-	gulp.watch(['./web/js/**/*.js', '!./web/js/!bower_components/', '!./web/js/!tests/'], ['js']);
-	gulp.watch('./web/img/**', ['img']);
+	gulp.watch('web/css/*.scss', ['sass']);
+	gulp.watch('web/js/lib/**', ['lib']);
+	gulp.watch(['web/js/**/*.js', '!web/js/!lib/', '!web/js/!tests/'], ['js']);
+	gulp.watch('web/img/**', ['img']);
 })
 
 gulp.task('sass', function() {
@@ -24,18 +24,18 @@ gulp.task('sass', function() {
 });
 
 gulp.task('lib', function() {
-	return gulp.src('web/js/bower_components/**/*.min.js')
-	.pipe(gulp.dest(localDeploymentFolder + 'lib/'));
+	return gulp.src('web/js/lib/**/*.min.js')
+	.pipe(gulp.dest(localDeploymentFolder + 'js/lib'));
 });
 
 gulp.task('js', function() {
-	return gulp.src(['web/js/**/*.js', '!web/js/bower_components/**', '!web/js/tests/**', ])
-	.pipe(gulp.dest(localDeploymentFolder));
+	return gulp.src(['web/js/**/*.js', '!web/js/lib/**', '!web/js/tests/**', ])
+	.pipe(gulp.dest(localDeploymentFolder + 'js'));
 });
 
 gulp.task('img', function() {
 	return gulp.src('web/img/**')
-	.pipe(gulp.dest(localDeploymentFolder));
+	.pipe(gulp.dest(localDeploymentFolder + 'img'));
 });
 
 gulp.task('clean:static', function() {
