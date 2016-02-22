@@ -1,8 +1,8 @@
 {%extends "PollApp/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<script type='text/javascript' src={% static 'PollApp/PollResultsController.js' %}></script>
-<script type='text/javascript' src={% static 'PollApp/lib/d3/d3.min.js' %}></script>
+<script type='text/javascript' src={% static 'PollApp/js/PollResultsController.js' %}></script>
+<script type='text/javascript' src={% static 'PollApp/js/lib/d3/d3.min.js' %}></script>
 {% verbatim %}
 <body ng-controller='PollResultsController'>
 	<div class='header'>

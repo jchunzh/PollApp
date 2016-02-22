@@ -1,6 +1,6 @@
 app.controller('CreatePollController', ['$scope', 'pollService', function ($scope, pollService) {
 	$scope.createPollResponse = new PollResponse();
-	$scope.loading_gif = '/static/PollApp/ajax-loader.gif';
+	$scope.loading_gif = '/static/PollApp/img/ajax-loader.gif';
 	$scope.poll = {
 		choices : initializeChoices(),
 		question : '',

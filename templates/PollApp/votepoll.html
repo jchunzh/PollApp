@@ -1,7 +1,7 @@
 {% extends "PollApp/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<script type='text/javascript' src={% static 'PollApp/VotePollController.js' %}></script>
+<script type='text/javascript' src={% static 'PollApp/js/VotePollController.js' %}></script>
 	{% verbatim %}
 	<body ng-controller='VotePollController'>
 		<div class='header'>

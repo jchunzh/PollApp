@@ -2,10 +2,30 @@ app.controller('PollResultsController', ['$scope', 'pollService', 'utilityServic
 	var uniqueId = utilityService.getPollUniqueId($location.path());
 	pollService.get( { uuid: uniqueId }, function(data) {
 		$scope.poll = data.poll;
+		$scope.total = totalVotes($scope.poll.choices);
+		addChoicePercentages(data.poll.choices, $scope.total)
 		createChart($scope.poll.choices);
 	});
 
 }]);
+
+function totalVotes(choices) {
+	var total = 0;
+	
+	for (var i = 0; i < choices.length; i++) {
+		total += choices[i].votes;
+	}
+	
+	return total;
+}
+
+function addChoicePercentages(choices, total) {
+	for (var i = 0; i < choices.length; i++) {
+		var choice = choices[i];
+		
+		choice.percent = Math.round(100 * choice.votes / total) + '%';
+	}
+}
 
 function createChart(choices) {
 	var width = 360;
@@ -42,11 +62,19 @@ function createChart(choices) {
         return color(d.data.text);
       });
       
-/*
       arcs.append("svg:g")
       .attr("class", "slice");
+
+/*
+	var path = svg.selectAll('path')
+	  .data(pie(choices))
+	  .enter()
+	  .append('path')
+	  .attr('d', arc)
+	  .attr('fill', function(d, i) { 
+	    return color(d.data.text);
+	  });
 */
-      
    	arcs.append("svg:text")                                     //add a label to each slice
     .attr("transform", function(d) {                    //set the label's origin to the center of the arc
 	    //we have to make sure to set these before calling arc.centroid

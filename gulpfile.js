@@ -7,7 +7,7 @@ var watch = require('gulp-watch');
 var localDeploymentFolder = 'static/PollApp/';
 
 gulp.task('default', function(callback) {
-	runSequence('clean:static', ['sass', 'lib', 'js', 'img', 'html', 'watch'], callback);
+	runSequence('clean:static', ['sass', 'lib', 'js', 'img'q, 'watch'], callback);
 });
 
 gulp.task('watch', ['clean:static'], function() {
