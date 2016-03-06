@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass')
+var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
 var del = require('del');
 var watch = require('gulp-watch');
@@ -7,7 +7,7 @@ var watch = require('gulp-watch');
 var localDeploymentFolder = 'static/PollApp/';
 
 gulp.task('default', function(callback) {
-	runSequence('clean:static', ['sass', 'lib', 'js', 'img'q, 'watch'], callback);
+	runSequence('clean:static', ['sass', 'lib', 'js', 'img', 'watch'], callback);
 });
 
 gulp.task('watch', ['clean:static'], function() {
