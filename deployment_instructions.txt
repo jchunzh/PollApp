@@ -1,9 +1,23 @@
+apt-get install nodejs
+apt-get install npm
+npm install bower -g
+
+first time:
+	install virtual env for python 3.x 
+		virtualenv -p /usr/bin/python3.4 <path/to/new/virtualenv/>
+		markdown
+		django
+		djangorestframework
+		psycopg2
+
+apt-get install libapache2-mod-wsgi-py3 //wsgi for python3
+
 apt-get install postgresql-9.4
 	create user
 	create database 'blog'
 	change password for postgres user
 		\password postgres
-pip3.4 install psycopg2 (install in virtual env)
+pip3.4 install d (install in virtual env)
 stop apache
 stop nginx
 start apache
