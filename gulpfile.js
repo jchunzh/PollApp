@@ -10,6 +10,10 @@ gulp.task('default', function(callback) {
 	runSequence('clean:static', ['sass', 'lib', 'js', 'img', 'watch'], callback);
 });
 
+gulp.task('prod', function(callback) {
+	runSequence('clean:static', ['sass', 'lib', 'js', 'img'], callback);
+});
+
 gulp.task('watch', ['clean:static'], function() {
 	gulp.watch('web/css/*.scss', ['sass']);
 	gulp.watch('web/js/lib/**', ['lib']);
