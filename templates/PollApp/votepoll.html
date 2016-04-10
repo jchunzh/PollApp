@@ -1,40 +1,49 @@
 {% extends "PollApp/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<script type='text/javascript' src={% static 'PollApp/js/VotePollController.js' %}></script>
+<script type='text/javascript' src={% static 'PollApp/js/controllers/VotePollController.js' %}></script>
 	{% verbatim %}
-	<body ng-controller='VotePollController'>
+	<div ng-controller='VotePollController'>
 		<div class='header'>
 			Quick Poll
 		</div>
 		<div class='content'>
 			<form ng-submit='vote()'>
-				<div class='question'>
-					{{ poll.question }}
-				</div>
-				<div ng-repeat='choice in poll.choices track by $index' ng-switch on='poll.isMultiSelect'>
-					<div class='vote-choice-container'>
-						<input ng-switch-when='true' type='checkbox' id='choice{{$index}}' ng-model='selectedChoiceMap[$index]' ng-value='true'/>
-						<input ng-switch-when='false'  type='radio' name='userChoice' id='choice{{$index}}' ng-model='selectedChoiceMap[$index]' ng-change='radioSelectionChanged($index)' ng-value='true'/>
-						<label for='choice{{$index}}'>{{choice.text}}</label>
-					</div>
-				</div>
-				<div class='actions'>
-					<input class='btnfy submit-btn' type='submit' value='VOTE'/>
-					<div class='noselect btnfy result-btn' ng-class='{"active-result-btn": showResults}' ng-click='toggleShowResults()'>
-						<div ng-hide='showResults'>
-						RESULTS
+				<div class='container-12'>
+					<div>
+						<div class='question underline-content'>
+							{{ poll.question }}
 						</div>
-						<div ng-show='showResults'>
-						HIDE
+						<div ng-repeat='choice in poll.choices track by $index' ng-switch on='poll.isMultiSelect'>
+							<div class='underline-content'>
+								<label for='choice{{$index}}'>
+									<div class='container-12 choice-container'>
+										<div class='col-1-12'>
+											<input ng-switch-when='true' type='checkbox' id='choice{{$index}}' ng-model='selectedChoiceMap[$index]' ng-value='true'/>
+											<input ng-switch-when='false'  type='radio' name='userChoice' id='choice{{$index}}' ng-model='selectedChoiceMap[$index]' ng-change='radioSelectionChanged($index)' ng-value='true'/>
+										</div>
+										<div class='col-11-12'>
+											{{choice.text}}
+										</div>
+									</div>
+								</label>
+							</div>
 						</div>
 					</div>
-					<div class='clear'></div>
-				</div>
-				<div class='results' ng-show='showResults'>
-					Chart here
+					<div class='container-12 actions'>
+						<div class='col-1-2'>
+							<div class='noselect btnfy result-btn' ng-click='gotoResults()'>
+								<div ng-hide='showResults'>
+								RESULTS
+								</div>
+							</div>
+						</div>
+						<div class='col-1-2'>
+							<input class='btnfy submit-btn' type='submit' value='VOTE'/>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>
-	</body>
+	</div>
 {% endverbatim %}{% endblock %}

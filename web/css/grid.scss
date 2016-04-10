@@ -1,0 +1,72 @@
+$max-mobile-width: 960px;
+$min-desktop-width: 961px;
+
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+[class*='col-']:last-of-type {
+	padding-right: 0;
+}
+
+@mixin col-1-12($multiplier) {
+	width: 1/12 * $multiplier * 100%;
+	float: left;
+	padding-right: 20px;
+}
+
+@mixin col-5-6() {
+	@include col-1-12(10);
+}
+
+@mixin col-2-3() {
+	@include col-1-12(8);
+}
+
+@mixin col-3-4() {
+	@include col-1-12(9);
+}
+
+@mixin col-1-1() {
+	@include col-1-12(12);
+}
+
+.container-12 {
+
+}
+
+.container-12:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.col-1-12 {
+	@include col-1-12(1);
+}
+
+.col-1-4 {
+	@include col-1-12(3);
+}
+
+.col-3-4 {
+	@include col-3-4();
+}
+
+.col-1-2 {
+	@include col-1-12(6);
+}
+
+.col-5-6 {
+	@include col-5-6();
+}
+
+.col-2-3 {
+	@include col-2-3();
+}
+
+.col-11-12 {
+	@include col-1-12(11);
+}

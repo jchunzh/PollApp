@@ -6,7 +6,6 @@ from .models import Poll, Choice
 from rest_framework.response import Response
 from PollApp.repositories.PollRepository import PollRepository
 from PollApp.repositories.ChoiceRepository import ChoiceRepository
-import logging
 
 def create(request):
 	return render(request, 'PollApp/createpoll.html')

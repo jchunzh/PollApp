@@ -15,7 +15,7 @@ gulp.task('prod', function(callback) {
 });
 
 gulp.task('watch', ['clean:static'], function() {
-	gulp.watch('web/css/*.scss', ['sass']);
+	gulp.watch('web/css/**/*.scss', ['sass']);
 	gulp.watch('web/js/lib/**', ['lib']);
 	gulp.watch(['web/js/**/*.js', '!web/js/!lib/', '!web/js/!tests/'], ['js']);
 	gulp.watch('web/img/**', ['img']);
@@ -24,6 +24,11 @@ gulp.task('watch', ['clean:static'], function() {
 gulp.task('sass', function() {
 	return gulp.src('web/css/*.scss')
 	.pipe(sass())
+	.on('error', function(error) {
+		console.log(error.toString());
+
+  		this.emit('end');
+	})
 	.pipe(gulp.dest(localDeploymentFolder + 'css'));
 });
 

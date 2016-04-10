@@ -15,13 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-resource/angular-resource.js',
-      'bower_components/d3/d3.js',
-      'pollApp.js',
-      '*.js',
-      'Tests/*.js',
+      'web/js/lib/angular/angular.js',
+      'web/js/lib/angular-mocks/angular-mocks.js',
+      'web/js/lib/angular-resource/angular-resource.js',
+      'web/js/lib/d3/d3.js',
+      'web/js/pollApp.js',
+      'web/js/*.js',
+      'web/js/tests/*.js',
     ],
 
 

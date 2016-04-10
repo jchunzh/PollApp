@@ -15,7 +15,7 @@ app.controller('VotePollController', ['$scope', 'pollService', '$location', 'uti
 				id: $scope.poll.uniqueId,
 				selectedChoices : selectedChoices
 			}, null, function(response) {
-				$window.location.href = '/quickpoll/results/' + $scope.pollId;
+				gotoResults($window, $scope.pollId);
 			});
 	};
 
@@ -23,10 +23,14 @@ app.controller('VotePollController', ['$scope', 'pollService', '$location', 'uti
 		selectNonMultiSelectChoice(index, $scope.selectedChoiceMap);
 	}
 
-	$scope.toggleShowResults = function() {
-		$scope.showResults = !$scope.showResults;
+	$scope.gotoResults = function() {
+		gotoResults($window, $scope.pollId);
 	}
 }]);
+
+function gotoResults($window, pollId) {
+	$window.location.href = '/quickpoll/results/' + pollId;
+}
 
 function createSelectedChoiceMap(choices) {
 	var choiceMap = [];

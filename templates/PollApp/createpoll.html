@@ -1,9 +1,9 @@
 {% extends "PollApp/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<script type='text/javascript' src={% static 'PollApp/js/CreatePollController.js' %}></script>
+<script type='text/javascript' src={% static 'PollApp/js/controllers/CreatePollController.js' %}></script>
 {% verbatim %}
-<body ng-controller='CreatePollController'>
+<div ng-controller='CreatePollController' class='container-12'>
 	<div class='header'>
 		Quick Poll
 	</div>
@@ -11,11 +11,11 @@
 		<div>
 			<form onsubmit="false">
 				<div class='poll'>
-					<div class='text-container input-text-container'>
+					<div class='text-container underline-content'>
 						<textarea class='question-textarea' ng-model='poll.question' placeholder='Ask a question...'></textarea>
 					</div>
-					<div ng-repeat="choice in poll.choices track by $index">
-						<div class='text-container input-text-container'>
+					<div ng-repeat="choice in poll.choices track by $index" class='text-container'>
+						<div class='underline-content'>
 							<input type="text" ng-model='choice.text' ng-change='addChoice($index)'
 							placeholder='Add an option...'/>
 						</div>
@@ -44,5 +44,5 @@
 			</form>
 		</div>
 	</div>
-</body>
+</div>
 {% endverbatim %}{% endblock %}

@@ -4,11 +4,22 @@
 		<script type="text/javascript" src={% static 'PollApp/js/lib/angular/angular.min.js' %}></script>
 		<script type='text/javascript' src={% static 'PollApp/js/lib/angular-resource/angular-resource.min.js' %}></script>
 		<script type='text/javascript' src={% static 'PollApp/js/pollApp.js' %} ></script>
-		<script type='text/javascript' src={% static 'PollApp/js/pollService.js' %}></script>
-		<script type='text/javascript' src={% static 'PollApp/js/utilityService.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/js/services/pollService.js' %}></script>
+		<script type='text/javascript' src={% static 'PollApp/js/services/utilityService.js' %}></script>
 		<link rel="stylesheet" type="text/css" href={% static 'PollApp/css/main.css' %}>
+		<!-- <link rel="stylesheet" type="text/css" href={% static 'PollApp/css/grid.css' %}> -->
 		<title>Quick Poll</title>
 	</head>
-	{% block content %} 
-	{% endblock %}
+	<body>
+		<div class='container-12'>
+			<div class='empty-col-left'>
+			</div>
+			<div class='main'>
+			{% block content %} 
+			{% endblock %}
+			</div>
+			<div class='empty-col-right'>
+			</div>
+		</div>
+	</body>
 </html>
