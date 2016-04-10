@@ -1,5 +1,5 @@
-$max-mobile-width: 960px;
-$min-desktop-width: 961px;
+$max-mobile-width: 736px;
+$min-desktop-width: 737px;
 
 *, *:after, *:before {
 	-webkit-box-sizing: border-box;
@@ -65,8 +65,4 @@ $min-desktop-width: 961px;
 
 .col-2-3 {
 	@include col-2-3();
-}
-
-.col-11-12 {
-	@include col-1-12(11);
 }
