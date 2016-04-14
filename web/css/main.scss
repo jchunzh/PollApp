@@ -4,22 +4,20 @@ $light-grey: #B8B8B8;
 $question-font-size: 1.5em;
 $default-font-size: 1em;
 
-@media (max-width: $max-mobile-width) {
-	.empty-col-left {
-		min-height: 1px;
-		@include col-1-12(1);
-	}
-
-	.empty-col-right {
-		
-	}
-
-	.main {
-		@include col-1-12(11);
-	}
+.empty-col-left {
+	min-height: 1px;
+	@include col-1-12(1);
 }
 
-@media (min-width: $min-desktop-width) {
+.empty-col-right {
+	
+}
+
+.main {
+	@include col-1-12(11);
+}
+
+@media (min-device-width: $min-desktop-width) {
 	.empty-col-left {
 		min-height: 1px;
 		@include col-1-12(4);
