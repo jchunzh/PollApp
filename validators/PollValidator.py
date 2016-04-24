@@ -16,9 +16,3 @@ class PollValidator():
 			validationResult.addError(self.QUESTION_REQUIRED)
 					
 		return validationResult
-	
-	def _validateQuestionLength(self, questionText):
-		pass
-		
-	def _validateChoiceTextLength(self, choiceText):
-		pass

@@ -1,5 +1,5 @@
 from PollApp.models import Choice
-from PollApp.utility.UniqueIdGenerator import UniqueIdGenerator
+from PollApp.Utility.UniqueIdGenerator import UniqueIdGenerator
 
 class ChoiceRepository():
 	def __init__(self):
@@ -13,21 +13,8 @@ class ChoiceRepository():
 			c.votes += 1
 			c.save()
 		
-	def create(self, poll, **choice):
-		choice = Choice(**choice)
-		choice.uniqueId = self._getUnusedChoiceUuid()
-		choice.poll = poll
+	def create(self, choice):
 		choice.save()
-		
-		return choice
-		
-		
-	def _getUnusedChoiceUuid(self):
-		while True:
-			candidateUuid = self._uniqueIdGenerator.createUniqueId()
-			existingPoll = Choice.objects.filter(uniqueId=candidateUuid)
-				
-			if not existingPoll:
-				break
-		
-		return candidateUuid
+
+	def getChoiceByUniqueId(self, uniqueId):
+		return Choice.objects.filter(uniqueId=uniqueId)[0]

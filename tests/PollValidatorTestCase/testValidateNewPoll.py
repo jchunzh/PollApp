@@ -1,7 +1,7 @@
 from django.test import TestCase
 from PollApp.models import Poll, Choice
-from PollApp.repositories.PollRepository import PollRepository
-from PollApp.repositories.ChoiceRepository import ChoiceRepository
+from PollApp.Repositories.PollRepository import PollRepository
+from PollApp.Repositories.ChoiceRepository import ChoiceRepository
 from PollApp.Validators.PollValidator import PollValidator
 
 class ValidateNewPollTestCase(TestCase):

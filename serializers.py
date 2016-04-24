@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Poll, Choice
 import uuid
 import base64
-from PollApp.repositories.PollRepository import PollRepository
+from PollApp.Repositories.PollRepository import PollRepository
 
 class ChoiceSerializer(serializers.ModelSerializer):
 	class Meta:

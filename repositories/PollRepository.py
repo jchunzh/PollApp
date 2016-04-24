@@ -1,5 +1,5 @@
 from PollApp.models import Poll, Choice
-from PollApp.utility.UniqueIdGenerator import UniqueIdGenerator
+from PollApp.Utility.UniqueIdGenerator import UniqueIdGenerator
 
 class PollRepository():
 	

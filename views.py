@@ -4,8 +4,8 @@ from .serializers import PollSerializer
 from rest_framework.decorators import detail_route
 from .models import Poll, Choice
 from rest_framework.response import Response
-from PollApp.repositories.PollRepository import PollRepository
-from PollApp.repositories.ChoiceRepository import ChoiceRepository
+from PollApp.Repositories.PollRepository import PollRepository
+from PollApp.Repositories.ChoiceRepository import ChoiceRepository
 
 def create(request):
 	return render(request, 'PollApp/createpoll.html')

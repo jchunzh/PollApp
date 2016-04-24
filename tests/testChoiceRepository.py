@@ -1,8 +1,8 @@
 from django.test import TestCase
 from PollApp.models import Poll, Choice
-from PollApp.repositories.ChoiceRepository import ChoiceRepository
+from PollApp.Repositories.ChoiceRepository import ChoiceRepository
 from unittest.mock import MagicMock
-from PollApp.tests.Utility import Utility
+from PollApp.Tests.Utility import Utility
 
 class ChoiceRepositoryTestCase(TestCase, Utility):
 	sut = None;
@@ -31,22 +31,15 @@ class ChoiceRepositoryTestCase(TestCase, Utility):
 		self.assertEqual(Choice.objects.get(pk=choices[0].id).votes, 4)
 		self.assertEqual(Choice.objects.get(pk=choices[1].id).votes, 5)
 
-	def test_when_creating_a_choice_then_a_unique_id_is_created(self):
-		repeatId = self.getUniqueId()
-		self.sut._uniqueIdGenerator.createUniqueId = MagicMock(return_value = repeatId)
-		self.sut.create(self.poll, **{
-		})
+	def test_when_creating_a_choice_then_choice_is_persisted(self):
+		expected = Choice(text='test', isSelected=True, uniqueId='1234', poll=self.poll)
+		self.sut.create(expected)
 		
-		self.sut._uniqueIdGenerator.createUniqueId = MagicMock(side_effect = [repeatId, self.getUniqueId()])
-		result = self.sut.create(self.poll, **{
-			'text': 'test',
-			'isSelected': True
-		})
-		
-		self.assertNotEqual(result.uniqueId, repeatId)
-		self.assertTrue(result.isSelected)
-		self.assertEqual('test', result.text)
+		actual = Choice.objects.get(pk=expected.id)
 
+		self.assertEqual(expected.text, actual.text)
+		self.assertEqual(expected.isSelected, actual.isSelected)
+		self.assertEqual(expected.uniqueId, actual.uniqueId)
 		
 	def _createTestChoice(self, uniqueId, votes, poll):
 		choice = Choice(uniqueId = uniqueId, votes = votes, poll = poll)

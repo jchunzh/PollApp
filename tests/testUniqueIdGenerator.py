@@ -1,5 +1,5 @@
 from django.test import TestCase
-from PollApp.utility.UniqueIdGenerator import UniqueIdGenerator
+from PollApp.Utility.UniqueIdGenerator import UniqueIdGenerator
 
 class UniqueIdGeneratorTestCase(TestCase):
 	sut = None;
