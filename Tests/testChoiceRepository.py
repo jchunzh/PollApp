@@ -45,4 +45,23 @@ class ChoiceRepositoryTestCase(TestCase, Utility):
 		choice = Choice(uniqueId = uniqueId, votes = votes, poll = poll)
 		choice.save()
 		
-		return choice;
+		return choice
+
+	def test_when_retrieving_choice_by_unique_id_then_the_correct_choice_is_returned(self):
+		uniqueId = self.getUniqueId()
+		choice = Choice()
+		poll = Poll()
+		poll.save()
+		choice.poll = poll
+		choice.uniqueId = uniqueId
+		choice.save();
+		
+		result = self.sut.getChoiceByUniqueId(uniqueId)
+	
+		self.assertEqual(choice.id, result.id)
+
+	def test_when_retrieving_choice_by_unique_id_then_none_is_returned_when_there_is_no_match(self):
+		choice = self.sut.getChoiceByUniqueId(-1)
+
+		self.assertEqual(choice, None)
+		

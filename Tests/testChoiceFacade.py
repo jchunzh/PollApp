@@ -7,8 +7,6 @@ from PollApp.Repositories.ChoiceRepository import ChoiceRepository
 from PollApp.Utility.UniqueIdGenerator import UniqueIdGenerator
 
 class ChoiceFacadeTestCase(TestCase, Utility):
-	sut = None
-
 	def setUp(self):
 		self.sut = ChoiceFacade()
 		self.sut._choiceRepository = create_autospec(ChoiceRepository, spec_set=True, instance=True)

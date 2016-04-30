@@ -9,7 +9,6 @@ class ChoiceRepository():
 		choices = Choice.objects.filter(uniqueId__in=choiceUniqueIds)
 		
 		for c in choices:
-			print(c)
 			c.votes += 1
 			c.save()
 		
@@ -17,4 +16,9 @@ class ChoiceRepository():
 		choice.save()
 
 	def getChoiceByUniqueId(self, uniqueId):
-		return Choice.objects.filter(uniqueId=uniqueId)[0]
+		try:
+			choice = Choice.objects.get(uniqueId=uniqueId)
+		except Choice.DoesNotExist:
+			return None
+
+		return choice

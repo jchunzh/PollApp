@@ -15,7 +15,7 @@ class ChoiceFacade():
 		self._choiceRepository.create(choice)
 
 	def _getUnusedChoiceUuid(self):
-		while True:
+		for i in range(100):
 			candidateUuid = self._uniqueIdGenerator.createUniqueId()
 			existingChoice = self._choiceRepository.getChoiceByUniqueId(candidateUuid)
 

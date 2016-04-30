@@ -8,12 +8,9 @@ class UniqueIdGenerator():
 
 
 	def createUrlSafeUniqueId(self):
-		candidate = ''
-		
-		while (len(candidate) < 6):
-			candidate = self._createdStripped64()
+		candidate = self._createdStripped64()
 			
-		return candidate[0:6]
+		return candidate[0:10]
 		
 	def createUniqueId(self):
 		return base64.urlsafe_b64encode(uuid.uuid4().bytes).decode('utf-8')[0:22]
