@@ -24,6 +24,16 @@ class PollViewSet(viewsets.ViewSet):
 	def create(self, request, pk=None):
 		pollData = request.data
 		
+		serializer = PollSerializer(data = request.data)
+		print(request.data)
+
+		if not serializer.is_valid():
+			return Response(
+				{
+				"hasErrors" : True,
+				"errors" : serializer.errors
+				})
+
 		choicesData = request.data.pop('choices')
 		poll = Poll(**pollData)
 		choices = []
@@ -33,11 +43,13 @@ class PollViewSet(viewsets.ViewSet):
 
 		PollFacade().create(poll, choices)
 		
-		serializer = PollSerializer(poll)
-		return Response({ 'poll' : serializer.data })
+		return Response(
+			{
+			"hasErrors" : False, 
+			'poll' : serializer.data 
+			})
 	
 	def retrieve(self, request, pk=None):
-		poll = PollRepository().getPollByUniqueId(pk)
 		serializer = PollSerializer(poll)
 
 		return Response({ 'poll' : serializer.data })
